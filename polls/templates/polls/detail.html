@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ question.question_text }}</title>
+    {% load static %}
+    <link href="{% static 'polls/style.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ question.question_text }}</h1>
+        </div>
+
+        <div class="choices">
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+            <form action="{% url 'polls:vote' question.id %}" method="post">
+                {% csrf_token %}
+                {% for choice in question.choice_set.all %}
+                    <label class="radioinput">{{ choice.choice_text }}
+                        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                        <span class="customradio"></span>
+                    </label>
+                {% endfor %}
+                <div class="submit">
+                    <button type="submit" value="Vote">Vote</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
