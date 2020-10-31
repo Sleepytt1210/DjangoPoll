@@ -5,6 +5,7 @@
 
 body{
     background: #fff url("images/background.gif") no-repeat;
+    background-size: cover;
 }
 
 .container{
